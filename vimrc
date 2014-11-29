@@ -187,14 +187,6 @@
   cmap w!! %!sudo tee > /dev/null %
 "}}}
 
-" completion
-" plugins that reduce typing and complete code {{{
-  NeoBundleLazy 'Shougo/neocomplcache.vim', {'autoload':{'insert':1}} "{{{
-    let g:neocomplcache_enable_at_startup=1
-    let g:neocomplcache_enable_fuzzy_completion=1
-  "}}}
-"}}}
-
 " language
 " plugins or syntax highlighting for a language or library {{{
   NeoBundle 'tpope/vim-surround'         "quoting/parenthesizing made simple
@@ -235,6 +227,42 @@
   NeoBundleLazy 'chase/vim-ansible-yaml', {'autoload':{'filetypes':['yml','yaml']}}
 " }}}
 
+" completion
+" plugins that reduce typing and complete code {{{
+  NeoBundleLazy 'Shougo/neocomplcache.vim', {'autoload':{'insert':1}} "{{{
+    let g:neocomplcache_enable_at_startup=1
+    let g:neocomplcache_enable_fuzzy_completion=1
+  "}}}
+
+  " modern
+  "NeoBundle 'Valloric/YouCompleteMe', {'vim_version':'7.3.584'} "{{{
+  "  let g:ycm_complete_in_comments_and_strings=1
+  "  let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+  "  let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+  "  let g:ycm_filetype_blacklist={'unite': 1}
+  "}}}
+  "NeoBundle 'SirVer/ultisnips' "{{{
+  "  let g:UltiSnipsExpandTrigger="<tab>"
+  "  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  "  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+  "  let g:UltiSnipsSnippetsDir=printf('%s/bundle/vim-snippets/snippets', s:portable)
+  "}}}
+
+  NeoBundle 'honza/vim-snippets'
+  NeoBundle 'Shougo/neosnippet-snippets'
+  NeoBundle 'Shougo/neosnippet.vim' "{{{
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+    let g:neosnippet#enable_snipmate_compatibility=1
+    let g:neosnippet#snippets_directory=printf('%s/bundle/vim-snippets/snippets,%s/snippets', s:portable, s:portable)
+  "}}}
+  "NeoBundle 'ervandew/supertab'
+  "NeoBundle 'honza/vim-snippets'
+  "NeoBundle 'garbas/vim-snipmate', { 'depends': ['tomtom/tlib_vim','MarcWeber/vim-addon-mw-utils'] }
+"}}}
+
 " writing
 " plugins and settings for disctraction-free writing {{{
   nmap <leader>w :Goyo<CR>
@@ -269,9 +297,12 @@
 " code display
 " plugins and colorschemes that enhance code display {{{
   NeoBundle 'tomasr/molokai'
+  NeoBundle 'godlygeek/csapprox'
   NeoBundle 'noahfrederick/vim-hemisu'
   NeoBundle 'altercation/vim-colors-solarized'
   NeoBundle 'jasonlong/lavalamp'
+  NeoBundle 'w0ng/vim-hybrid'
+  NeoBundle 'morhetz/gruvbox'
   NeoBundle 'nanotech/jellybeans.vim' "{{{
     "let g:jellybeans_use_lowcolor_black = 0
   "}}}
@@ -300,6 +331,7 @@
 " plugins that add or change a UI element {{{
   NeoBundle 'sickill/vim-pasta'          "pasting with indentation adjusted to destination context
   NeoBundle 'tpope/vim-fugitive'         "a Git wrapper so awesome, it should be illegal
+  NeoBundle 'vim-scripts/gitignore'      "Set 'wildignore' from ./.gitignore
   "NeoBundle 'mhinz/vim-startify'        "fancy start screen for Vim
   "NeoBundle 'gregsexton/gitv'            "gitk-like extension for vim-fugitive
 

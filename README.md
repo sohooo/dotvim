@@ -53,6 +53,13 @@ Here's a list of useful keyboard bindings:
 * `,vir`    edit README.md (to look up bindings)
 * `,tt`     change tabs
 
+
+### Neosnippets
+
+* `ctrl-p | ctrl-n`  cycle through elements
+* `ctrl-k`           complete snippet
+
+
 ### CtrlP
 
 * `<c-jk>`  movement
