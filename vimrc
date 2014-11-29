@@ -283,7 +283,8 @@
     nnoremap <leader>u :UndotreeToggle<CR>
   "}}}
 
-  NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}} "{{{
+  NeoBundle 'scrooloose/nerdtree' "{{{
+  NeoBundle 'jistr/vim-nerdtree-tabs'
     let NERDTreeShowHidden=1
     let NERDTreeQuitOnOpen=0
     let NERDTreeShowLineNumbers=1
@@ -291,7 +292,6 @@
     let NERDTreeShowBookmarks=1
     let NERDTreeIgnore=['\.git','\.hg']
     nnoremap <leader>d :NERDTreeToggle<CR>
-    NeoBundle 'jistr/vim-nerdtree-tabs'
   "}}}
 
   NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
