@@ -40,6 +40,7 @@
   let s:is_windows = has('win32') || has('win64')
   let s:is_cygwin = has('win32unix')
   let s:is_macvim = has('gui_macvim')
+  let s:is_unix   = has('unix')
 " }}}
 
 " common options {{{
@@ -74,6 +75,18 @@
       set guioptions=egmrt
     endif
 
+  elseif s:is_windows
+     " Windows
+    set guifont=Consolas:h10:cANSI
+    set guioptions-=T " Toolbar
+    set guioptions-=m " Menubar
+
+    " Set height and width on Windows
+    set lines=60
+    set columns=120
+
+    " Windows has a nasty habit of launching gVim in the wrong working directory
+    cd ~
   endif
 
   syntax enable
@@ -174,38 +187,37 @@
   cmap w!! %!sudo tee > /dev/null %
 "}}}
 
-NeoBundle 'tpope/vim-surround'         "quoting/parenthesizing made simple
-NeoBundle 'tpope/vim-repeat'           "enable repeating supported plugin
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build': {
-        \ 'mac': 'make -f make_mac.mak',
-        \ 'unix': 'make -f make_unix.mak',
-        \ 'cygwin': 'make -f make_cygwin.mak',
-        \ 'windows': '"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\nmake.exe" make_msvc32.mak',
-      \ },
-    \ }
-
-" Navigation
-"NeoBundle 'mhinz/vim-startify'        "fancy start screen for Vim
-
-" Helpers, Display
-NeoBundle 'tpope/vim-fugitive'         "a Git wrapper so awesome, it should be illegal
-NeoBundle 'tomtom/tcomment_vim'        "An extensible & universal comment vim-plugin
-NeoBundle 'bling/vim-airline'          "lean & mean status/tabline for vim
-NeoBundle 'tpope/vim-endwise'          "wisely add 'end' in ruby, etc
-NeoBundle 'tpope/vim-unimpaired'       "pairs of handy bracket mappings
-
+" helpers {{{
+  NeoBundle 'tpope/vim-fugitive'         "a Git wrapper so awesome, it should be illegal
+  NeoBundle 'tomtom/tcomment_vim'        "An extensible & universal comment vim-plugin
+  NeoBundle 'tpope/vim-endwise'          "wisely add 'end' in ruby, etc
+  NeoBundle 'tpope/vim-unimpaired'       "pairs of handy bracket mappings
+  NeoBundle 'tpope/vim-surround'         "quoting/parenthesizing made simple
+  NeoBundle 'tpope/vim-repeat'           "enable repeating supported plugin
+  NeoBundle 'Shougo/vimproc.vim', {
+        \ 'build': {
+          \ 'mac': 'make -f make_mac.mak',
+          \ 'unix': 'make -f make_unix.mak',
+          \ 'cygwin': 'make -f make_cygwin.mak',
+          \ 'windows': '"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\nmake.exe" make_msvc32.mak',
+        \ },
+      \ }
+"}}}
 
 NeoBundleLazy 'Shougo/neocomplcache.vim', {'autoload':{'insert':1}} "{{{
   let g:neocomplcache_enable_at_startup=1
   let g:neocomplcache_enable_fuzzy_completion=1
 "}}}
 
+" display {{{
+  NeoBundle 'bling/vim-airline'          "lean & mean status/tabline for vim
+  "NeoBundle 'mhinz/vim-startify'        "fancy start screen for Vim
+"}}}
+
 NeoBundleLazy 'zhaocai/GoldenView.Vim', {'autoload':{'mappings':['<Plug>ToggleGoldenViewAutoResize']}} "{{{
   let g:goldenview__enable_default_mapping=0
   nmap <leader>v <Plug>ToggleGoldenViewAutoResize
 "}}}
-
 
 " language plugins {{{
   NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
@@ -342,11 +354,11 @@ call neobundle#end()
 filetype plugin indent on
 syntax enable
 
-" color {{{
+" colors {{{
   set background=dark
 
   " conditionally set colorscheme
-  if has('unix') && !has('gui_macvim')
+  if s:is_unix && !s:is_macvim
     if $TERM == 'xterm-256color'
       colorscheme molokai
     else
@@ -357,6 +369,5 @@ syntax enable
     colorscheme molokai
   endif
 " }}}
-
 
 " enjoy.
