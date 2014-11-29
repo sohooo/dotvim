@@ -201,6 +201,10 @@
   NeoBundle 'tpope/vim-endwise'          "wisely add 'end' in ruby, etc
   NeoBundle 'vim-ruby/vim-ruby'
 
+  NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown','md','mkd']}}
+  NeoBundleLazy 'nelstrom/vim-markdown-folding', {'autoload':{'filetypes':['markdown','md','mkd']}}
+
+  NeoBundleLazy 'tpope/vim-ragtag', {'autoload':{'filetypes':['xml','html','erb']}}
   NeoBundleLazy 'mxw/vim-jsx', {'autoload':{'filetypes':['jsx']}}
   NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['json','jsonp','javascript']}}
   NeoBundleLazy 'tpope/vim-cucumber', {'autoload':{'filetypes':['feature','story']}}
@@ -216,8 +220,6 @@
   NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
   NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
   NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','coffee','ls','typescript']}}
-  NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown']}}
-  NeoBundleLazy 'nelstrom/vim-markdown-folding', {'autoload':{'filetypes':['markdown']}}
   NeoBundleLazy 'wavded/vim-stylus', {'autoload':{'filetypes':['styl']}}
   NeoBundleLazy 'digitaltoad/vim-jade', {'autoload':{'filetypes':['jade']}}
   NeoBundleLazy 'juvenn/mustache.vim', {'autoload':{'filetypes':['mustache']}}
@@ -233,11 +235,46 @@
   NeoBundleLazy 'chase/vim-ansible-yaml', {'autoload':{'filetypes':['yml','yaml']}}
 " }}}
 
+" writing
+" plugins and settings for disctraction-free writing {{{
+  nmap <leader>w :Goyo<CR>
+  NeoBundleLazy 'junegunn/goyo.vim', {'autoload':{'commands':'Goyo'}} "{{{
+    function! s:goyo_enter()
+      silent !tmux set status off
+      set noshowmode
+      set noshowcmd
+      set scrolloff=999
+      Limelight
+    endfunction
+
+    function! s:goyo_leave()
+      silent !tmux set status on
+      set showmode
+      set showcmd
+      set scrolloff=5
+      Limelight!
+    endfunction
+
+    autocmd! User GoyoEnter
+    autocmd! User GoyoLeave
+    autocmd  User GoyoEnter nested call <SID>goyo_enter()
+    autocmd  User GoyoLeave nested call <SID>goyo_leave()
+  "}}}
+
+  NeoBundleLazy 'junegunn/limelight.vim', {'autoload':{'commands':'Limelight'}} "{{{
+    let g:limelight_default_coefficient = 0.7
+  "}}}
+" }}}
+
 " code display
 " plugins and colorschemes that enhance code display {{{
   NeoBundle 'tomasr/molokai'
+  NeoBundle 'noahfrederick/vim-hemisu'
   NeoBundle 'altercation/vim-colors-solarized'
   NeoBundle 'jasonlong/lavalamp'
+  NeoBundle 'nanotech/jellybeans.vim' "{{{
+    "let g:jellybeans_use_lowcolor_black = 0
+  "}}}
 " }}}
 
 " integrations
@@ -261,8 +298,10 @@
 
 " interface
 " plugins that add or change a UI element {{{
-  "NeoBundle 'mhinz/vim-startify'        "fancy start screen for Vim
+  NeoBundle 'sickill/vim-pasta'          "pasting with indentation adjusted to destination context
   NeoBundle 'tpope/vim-fugitive'         "a Git wrapper so awesome, it should be illegal
+  "NeoBundle 'mhinz/vim-startify'        "fancy start screen for Vim
+  "NeoBundle 'gregsexton/gitv'            "gitk-like extension for vim-fugitive
 
   NeoBundle 'bling/vim-airline' "{{{
     " enable powerline fonts on Mac
@@ -395,7 +434,7 @@ syntax enable
   " conditionally set colorscheme
   if s:is_unix && !s:is_macvim
     if $TERM == 'xterm-256color'
-      colorscheme molokai
+      colorscheme jellybeans
     else
       let g:CSApprox_verbose_level=0
       colorscheme slate

@@ -39,6 +39,7 @@ Here's a list of useful keyboard bindings:
 * `,g`      grep in current path w/ Unite
 * `,d`      toggle NerdTree
 * `,v`      toggle GoldenView autoresizing (enabled on start)
+* `,w`      toggle distraction-free writing
 * `gcc`     toggle comment on/off
 * `jj`      remap von ESC; this rox!
 * `F9`      toggle paste/nopaste
