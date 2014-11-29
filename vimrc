@@ -187,13 +187,69 @@
   cmap w!! %!sudo tee > /dev/null %
 "}}}
 
-" helpers {{{
-  NeoBundle 'tpope/vim-fugitive'         "a Git wrapper so awesome, it should be illegal
-  NeoBundle 'tomtom/tcomment_vim'        "An extensible & universal comment vim-plugin
-  NeoBundle 'tpope/vim-endwise'          "wisely add 'end' in ruby, etc
-  NeoBundle 'tpope/vim-unimpaired'       "pairs of handy bracket mappings
+" completion
+" plugins that reduce typing and complete code {{{
+  NeoBundleLazy 'Shougo/neocomplcache.vim', {'autoload':{'insert':1}} "{{{
+    let g:neocomplcache_enable_at_startup=1
+    let g:neocomplcache_enable_fuzzy_completion=1
+  "}}}
+"}}}
+
+" language
+" plugins or syntax highlighting for a language or library {{{
   NeoBundle 'tpope/vim-surround'         "quoting/parenthesizing made simple
-  NeoBundle 'tpope/vim-repeat'           "enable repeating supported plugin
+  NeoBundle 'tpope/vim-endwise'          "wisely add 'end' in ruby, etc
+  NeoBundle 'vim-ruby/vim-ruby'
+
+  NeoBundleLazy 'mxw/vim-jsx', {'autoload':{'filetypes':['jsx']}}
+  NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['json','jsonp']}}
+  NeoBundleLazy 'tpope/vim-cucumber', {'autoload':{'filetypes':['feature','story']}}
+  NeoBundleLazy 'slim-template/vim-slim', {'autoload':{'filetypes':['slim']}}
+  NeoBundleLazy 'timcharper/textile.vim', {'autoload':{'filetypes':['textile']}}
+  NeoBundleLazy 'thoughtbot/vim-rspec', {'autoload':{'filetypes':['rb']}}
+  NeoBundleLazy 'ekalinin/Dockerfile.vim', {'autoload':{'filetypes':['Dockerfile','dock']}}
+  NeoBundleLazy 'elixir-lang/vim-elixir', {'autoload':{'filetypes':['ex','exs']}}
+  NeoBundleLazy 'tpope/vim-haml', {'autoload':{'filetypes':['haml','sass','scss']}}
+  NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
+  NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}}
+  NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
+  NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
+  NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
+  NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
+  NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','coffee','ls','typescript']}}
+  NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown']}}
+  NeoBundleLazy 'nelstrom/vim-markdown-folding', {'autoload':{'filetypes':['markdown']}}
+  NeoBundleLazy 'wavded/vim-stylus', {'autoload':{'filetypes':['styl']}}
+  NeoBundleLazy 'digitaltoad/vim-jade', {'autoload':{'filetypes':['jade']}}
+  NeoBundleLazy 'juvenn/mustache.vim', {'autoload':{'filetypes':['mustache']}}
+  NeoBundleLazy 'gregsexton/MatchTag', {'autoload':{'filetypes':['html','xml']}}
+  NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
+  NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload':{'filetypes':['scss','sass']}}
+  NeoBundleLazy 'groenewege/vim-less', {'autoload':{'filetypes':['less']}}
+  NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload':{'filetypes':['css','scss','sass']}}
+  NeoBundleLazy 'ap/vim-css-color', {'autoload':{'filetypes':['css','scss','sass','less','styl']}}
+  NeoBundleLazy 'hdima/python-syntax', {'autoload':{'filetypes':['python']}}
+  NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}}
+  NeoBundleLazy 'rodjek/vim-puppet', {'autoload':{'filetypes':['pp']}}
+  NeoBundleLazy 'chase/vim-ansible-yaml', {'autoload':{'filetypes':['yml','yaml']}}
+" }}}
+
+" code display
+" plugins and colorschemes that enhance code display {{{
+  NeoBundle 'tomasr/molokai'
+  NeoBundle 'altercation/vim-colors-solarized'
+  NeoBundle 'jasonlong/lavalamp'
+" }}}
+
+" integrations
+" plugins that integrate Vim with external tools or the OS {{{
+  NeoBundle 'scrooloose/syntastic' "{{{
+    let g:syntastic_error_symbol = '✗'
+    let g:syntastic_style_error_symbol = '✠'
+    let g:syntastic_warning_symbol = '∆'
+    let g:syntastic_style_warning_symbol = '≈'
+  "}}}
+
   NeoBundle 'Shougo/vimproc.vim', {
         \ 'build': {
           \ 'mac': 'make -f make_mac.mak',
@@ -204,157 +260,128 @@
       \ }
 "}}}
 
-NeoBundleLazy 'Shougo/neocomplcache.vim', {'autoload':{'insert':1}} "{{{
-  let g:neocomplcache_enable_at_startup=1
-  let g:neocomplcache_enable_fuzzy_completion=1
-"}}}
-
-" display {{{
-  NeoBundle 'bling/vim-airline'          "lean & mean status/tabline for vim
+" interface
+" plugins that add or change a UI element {{{
   "NeoBundle 'mhinz/vim-startify'        "fancy start screen for Vim
-"}}}
+  NeoBundle 'tpope/vim-fugitive'         "a Git wrapper so awesome, it should be illegal
 
-NeoBundleLazy 'zhaocai/GoldenView.Vim', {'autoload':{'mappings':['<Plug>ToggleGoldenViewAutoResize']}} "{{{
-  let g:goldenview__enable_default_mapping=0
-  nmap <leader>v <Plug>ToggleGoldenViewAutoResize
-"}}}
+  NeoBundle 'bling/vim-airline' "{{{
+    " enable powerline fonts on Mac
+    if s:is_macvim
+      let g:airline_powerline_fonts=1
+    endif
+    if !exists('g:airline_powerline_fonts')
+      " Use the default set of separators with a few customizations
+      let g:airline_left_sep='›'  " Slightly fancier than '>'
+      let g:airline_right_sep='‹' " Slightly fancier than '<'
+    endif
+  "}}}
 
-" language plugins {{{
-  NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
-  NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}}
-  NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
-  NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
-  NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
-  NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
-  NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','coffee','ls','typescript']}}
-  NeoBundle 'vim-ruby/vim-ruby'
-  NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown']}}
-  NeoBundleLazy 'nelstrom/vim-markdown-folding', {'autoload':{'filetypes':['markdown']}}
-  NeoBundle 'tpope/vim-haml'
-  NeoBundleLazy 'wavded/vim-stylus', {'autoload':{'filetypes':['styl']}}
-  NeoBundleLazy 'digitaltoad/vim-jade', {'autoload':{'filetypes':['jade']}}
-  NeoBundleLazy 'juvenn/mustache.vim', {'autoload':{'filetypes':['mustache']}}
-  NeoBundleLazy 'gregsexton/MatchTag', {'autoload':{'filetypes':['html','xml']}}
-  NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
-  NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload':{'filetypes':['scss','sass']}}
-  NeoBundleLazy 'groenewege/vim-less', {'autoload':{'filetypes':['less']}}
-  NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload':{'filetypes':['css','scss','sass']}}
-  NeoBundleLazy 'ap/vim-css-color', {'autoload':{'filetypes':['css','scss','sass','less','styl']}}
-  NeoBundle 'slim-template/vim-slim'
-  NeoBundle 'tpope/vim-cucumber'
-  NeoBundle 'elzr/vim-json'
-  NeoBundle 'thoughtbot/vim-rspec'
-  NeoBundle 'hdima/python-syntax'
-  NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}}
-  NeoBundle 'elixir-lang/vim-elixir'
-  NeoBundle 'ekalinin/Dockerfile.vim'
-  NeoBundle 'mxw/vim-jsx'
-  NeoBundle 'rodjek/vim-puppet'
-  NeoBundle 'timcharper/textile.vim'
-  NeoBundle 'chase/vim-ansible-yaml'
-" }}}
+  NeoBundleLazy 'mbbill/undotree', {'autoload':{'commands':'UndotreeToggle'}} "{{{
+    let g:undotree_SplitLocation='botright'
+    let g:undotree_SetFocusWhenToggle=1
+    nnoremap <leader>u :UndotreeToggle<CR>
+  "}}}
 
-" colorschemes {{{
-  NeoBundle 'tomasr/molokai'
-  NeoBundle 'altercation/vim-colors-solarized'
-  NeoBundle 'jasonlong/lavalamp'
-" }}}
+  NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}} "{{{
+    let NERDTreeShowHidden=1
+    let NERDTreeQuitOnOpen=0
+    let NERDTreeShowLineNumbers=1
+    let NERDTreeChDirMode=0
+    let NERDTreeShowBookmarks=1
+    let NERDTreeIgnore=['\.git','\.hg']
+    nnoremap <leader>d :NERDTreeToggle<CR>
+    NeoBundle 'jistr/vim-nerdtree-tabs'
+  "}}}
 
-NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}} "{{{
-  nmap <leader>t= :Tabularize /=<CR>
-  vmap <leader>t= :Tabularize /=<CR>
-  nmap <leader>t: :Tabularize /:\zs<CR>
-  vmap <leader>t: :Tabularize /:\zs<CR>
-  nmap <leader>t, :Tabularize /,\zs<CR>
-  vmap <leader>t, :Tabularize /,\zs<CR>
-  nmap <leader>tt :Tabularize /=>\zs<CR>
-  vmap <leader>tt :Tabularize /=>\zs<CR>
-"}}}
+  NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
+    nnoremap <leader>tb :TagbarToggle<CR>
+  "}}}
 
-NeoBundle 'justinmk/vim-sneak' "{{{
-  "move to next 'ab' => sab (s modifier)
-  let g:sneak#streak = 1
-"}}}
+  NeoBundle 'Shougo/unite.vim' "{{{
+    let bundle = neobundle#get('unite.vim')
+    function! bundle.hooks.on_source(bundle)
+      call unite#filters#matcher_default#use(['matcher_fuzzy'])
+      call unite#filters#sorter_default#use(['sorter_rank'])
+      call unite#custom#source('file_rec/async','sorters','sorter_rank', )
+      "call unite#custom#source('line,outline','matchers','matcher_fuzzy')
+      call unite#custom#profile('default', 'context', {
+        \ 'start_insert': 1,
+        \ 'direction': 'botright',
+        \ })
+    endfunction
 
-NeoBundleLazy 'mbbill/undotree', {'autoload':{'commands':'UndotreeToggle'}} "{{{
-  let g:undotree_SplitLocation='botright'
-  let g:undotree_SetFocusWhenToggle=1
-  nnoremap <leader>u :UndotreeToggle<CR>
-"}}}
-
-NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}} "{{{
-  let NERDTreeShowHidden=1
-  let NERDTreeQuitOnOpen=0
-  let NERDTreeShowLineNumbers=1
-  let NERDTreeChDirMode=0
-  let NERDTreeShowBookmarks=1
-  let NERDTreeIgnore=['\.git','\.hg']
-  nnoremap <leader>d :NERDTreeToggle<CR>
-  NeoBundle 'jistr/vim-nerdtree-tabs'
-"}}}
-
-NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
-  nnoremap <leader>tb :TagbarToggle<CR>
-"}}}
-
-NeoBundle 'Shougo/unite.vim' "{{{
-  let bundle = neobundle#get('unite.vim')
-  function! bundle.hooks.on_source(bundle)
-    call unite#filters#matcher_default#use(['matcher_fuzzy'])
-    call unite#filters#sorter_default#use(['sorter_rank'])
-    call unite#custom#source('file_rec/async','sorters','sorter_rank', )
-    "call unite#custom#source('line,outline','matchers','matcher_fuzzy')
-    call unite#custom#profile('default', 'context', {
-      \ 'start_insert': 1,
-      \ 'direction': 'botright',
-      \ })
-  endfunction
-
-  " replacing unite with ctrl-p
-  let g:unite_enable_start_insert=1
-  let g:unite_source_history_yank_enable=1
-  let g:unite_prompt='» '
-  let g:unite_split_rule = 'botright'
-  if executable('ag')
+    " replacing unite with ctrl-p
+    let g:unite_enable_start_insert=1
+    let g:unite_source_history_yank_enable=1
+    let g:unite_prompt='» '
+    let g:unite_split_rule = 'botright'
+    if executable('ag')
       let g:unite_source_grep_command='ag'
       let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
       let g:unite_source_grep_recursive_opt=''
-  endif
+    elseif executable('ack')
+      let g:unite_source_grep_command='ack'
+      let g:unite_source_grep_default_opts='--no-heading --no-color -C4'
+      let g:unite_source_grep_recursive_opt=''
+    endif
 
-  NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
+    NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
 
-  nnoremap <leader>f :Unite -auto-resize file file_mru file_rec<cr>
-  nnoremap <leader>g :Unite grep:.<cr>
-  nnoremap <leader>b :Unite -quick-match buffer<cr>
+    nnoremap <leader>f :<C-u>Unite -toggle -auto-resize file file_mru file_rec/async:!<cr><c-u>
+    nnoremap <leader>g :Unite -no-quit grep:.<cr>
+    nnoremap <leader>b :Unite -quick-match buffer<cr>
+  "}}}
+
+  NeoBundle 'nathanaelkane/vim-indent-guides' "{{{
+    let g:indent_guides_start_level=1
+    let g:indent_guides_guide_size=1
+    let g:indent_guides_enable_on_vim_startup=0
+    let g:indent_guides_color_change_percent=3
+    if !has('gui_running')
+      let g:indent_guides_auto_colors=0
+      function! s:indent_set_console_colors()
+        hi IndentGuidesOdd ctermbg=235
+        hi IndentGuidesEven ctermbg=236
+      endfunction
+      autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
+    endif
+  "}}}
+
+  NeoBundleLazy 'zhaocai/GoldenView.Vim', {'autoload':{'mappings':['<Plug>ToggleGoldenViewAutoResize']}} "{{{
+    let g:goldenview__enable_default_mapping=0
+    nmap <leader>v <Plug>ToggleGoldenViewAutoResize
+  "}}}
 "}}}
 
-NeoBundle 'nathanaelkane/vim-indent-guides' "{{{
-  let g:indent_guides_start_level=1
-  let g:indent_guides_guide_size=1
-  let g:indent_guides_enable_on_vim_startup=0
-  let g:indent_guides_color_change_percent=3
-  if !has('gui_running')
-    let g:indent_guides_auto_colors=0
-    function! s:indent_set_console_colors()
-      hi IndentGuidesOdd ctermbg=235
-      hi IndentGuidesEven ctermbg=236
-    endfunction
-    autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
-  endif
-"}}}
+" commands
+" plugins that introduce or change a Vim command {{{
+  NeoBundle 'tomtom/tcomment_vim'        "An extensible & universal comment vim-plugin
+  NeoBundle 'tpope/vim-unimpaired'       "pairs of handy bracket mappings
+  NeoBundle 'tpope/vim-repeat'           "enable repeating supported plugin
 
-NeoBundle 'scrooloose/syntastic' "{{{
-  let g:syntastic_error_symbol = '✗'
-  let g:syntastic_style_error_symbol = '✠'
-  let g:syntastic_warning_symbol = '∆'
-  let g:syntastic_style_warning_symbol = '≈'
+  NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}} "{{{
+    nmap <leader>t= :Tabularize /=<CR>
+    vmap <leader>t= :Tabularize /=<CR>
+    nmap <leader>t: :Tabularize /:\zs<CR>
+    vmap <leader>t: :Tabularize /:\zs<CR>
+    nmap <leader>t, :Tabularize /,\zs<CR>
+    vmap <leader>t, :Tabularize /,\zs<CR>
+    nmap <leader>tt :Tabularize /=>\zs<CR>
+    vmap <leader>tt :Tabularize /=>\zs<CR>
+  "}}}
+
+  NeoBundle 'justinmk/vim-sneak' "{{{
+    "move to next 'ab' => sab (s modifier)
+    let g:sneak#streak = 1
+  "}}}
 "}}}
 
 call neobundle#end()
 filetype plugin indent on
 syntax enable
 
-" colors {{{
+" color settings {{{
   set background=dark
 
   " conditionally set colorscheme

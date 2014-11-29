@@ -35,6 +35,8 @@ Here's a list of useful keyboard bindings:
 
 * `s`       vim-sneak; like 'f', but multiple lines
 * `,f`      find file w/ Unite
+* `,b`      choose buffer w/ Unite
+* `,g`      grep in current path w/ Unite
 * `,d`      toggle NerdTree
 * `gcc`     toggle comment on/off
 * `jj`      remap von ESC; this rox!
