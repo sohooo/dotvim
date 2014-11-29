@@ -202,7 +202,7 @@
   NeoBundle 'vim-ruby/vim-ruby'
 
   NeoBundleLazy 'mxw/vim-jsx', {'autoload':{'filetypes':['jsx']}}
-  NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['json','jsonp']}}
+  NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['json','jsonp','javascript']}}
   NeoBundleLazy 'tpope/vim-cucumber', {'autoload':{'filetypes':['feature','story']}}
   NeoBundleLazy 'slim-template/vim-slim', {'autoload':{'filetypes':['slim']}}
   NeoBundleLazy 'timcharper/textile.vim', {'autoload':{'filetypes':['textile']}}
@@ -215,7 +215,6 @@
   NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
   NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
   NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
-  NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
   NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','coffee','ls','typescript']}}
   NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown']}}
   NeoBundleLazy 'nelstrom/vim-markdown-folding', {'autoload':{'filetypes':['markdown']}}
@@ -298,6 +297,14 @@
     nnoremap <leader>tb :TagbarToggle<CR>
   "}}}
 
+  if has('signs')
+    NeoBundle 'airblade/vim-gitgutter' "{{{
+      let g:gitgutter_enabled = 1
+      let g:gitgutter_realtime = 1
+      let g:gitgutter_eager = 1
+    "}}}
+  endif
+
   NeoBundle 'Shougo/unite.vim' "{{{
     let bundle = neobundle#get('unite.vim')
     function! bundle.hooks.on_source(bundle)
@@ -348,8 +355,9 @@
     endif
   "}}}
 
-  NeoBundleLazy 'zhaocai/GoldenView.Vim', {'autoload':{'mappings':['<Plug>ToggleGoldenViewAutoResize']}} "{{{
-    let g:goldenview__enable_default_mapping=0
+  NeoBundle 'zhaocai/GoldenView.Vim' "{{{
+    "let g:goldenview__enable_at_startup = 0
+    let g:goldenview__enable_default_mapping = 0
     nmap <leader>v <Plug>ToggleGoldenViewAutoResize
   "}}}
 "}}}
