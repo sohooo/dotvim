@@ -404,6 +404,19 @@
       let g:unite_source_grep_recursive_opt=''
     endif
 
+    autocmd FileType unite call s:unite_settings()
+
+    function! s:unite_settings()
+      let b:SuperTabDisabled=1
+      imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+      imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+      imap <silent><buffer><expr> <C-h> unite#do_action('split')
+      imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+      imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+
+      nmap <buffer> <ESC> <Plug>(unite_exit)
+    endfunction
+
     NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
 
     nnoremap <leader>f :<C-u>Unite -toggle -auto-resize file file_mru file_rec/async:!<cr><c-u>

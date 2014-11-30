@@ -19,6 +19,7 @@ This setup is based on various sources all around github. Huge credits go to the
 
 - fully portable; place `vimrc` anywhere you want
 - conditional loading of plugins/language features with `NeoBundleLazy`
+- distraction-free writing mode
 
 
 ## Installation
@@ -38,19 +39,13 @@ Here's a list of useful keyboard bindings:
 * `,b`      choose buffer w/ Unite
 * `,g`      grep in current path w/ Unite
 * `,d`      toggle NerdTree
+* `,u`      toggle UndoTree
 * `,v`      toggle GoldenView autoresizing (enabled on start)
 * `,w`      toggle distraction-free writing
 * `gcc`     toggle comment on/off
 * `jj`      remap von ESC; this rox!
 * `F9`      toggle paste/nopaste
 * `F10`     toggle number/nonumber
-
-* `ctrl-shift-d` OS X File Drawer
-* `,y`      show YankRing
-* `,n`      toggle IndentGuides
-* `,u`      toggle UndoTree
-* `,vim`    edit vimrc
-* `,vir`    edit README.md (to look up bindings)
 * `,tt`     change tabs
 
 
@@ -60,15 +55,12 @@ Here's a list of useful keyboard bindings:
 * `ctrl-k`           complete snippet
 
 
-### CtrlP
+### Unite
 
 * `<c-jk>`  movement
 * `<c-t>`   open in tab
 * `<c-v>`   open in vertical split
-* `<c-cr>`  open in horizontal split
-* `<c-z>`   mark file to open with `<c-o>`
-* `<c-u>`   clear search field
-* `<c-y>`   create a new file and (parent dir)
+* `<c-h>`   open in horizontal split
 
 
 ### Fugitive
@@ -82,27 +74,7 @@ Here's a list of useful keyboard bindings:
 * `,t:`  align :
 * `,tt`  align =>
 
-### Vundle
 
-* `,bi`  BundleInstall
-* `,bu`  BundleUpdate
-* `,bc`  BundleClean
-
-### ShowMarks
-
-* `,mt` toggles ShowMarks on and off
-* `,mh` hides an individual mark
-* `,ma` hides all marks in the current buffer
-* `,mm` places the next available mark
-
-
-### EasyGrep
-
-* `,vv`  search word under cursor
-* `,vr`  replace word under cursor
-* `,vo`  EasyGrep Options
-* `:cw`  result list
-* `ctrl+w enter`  open result (in CW)
 
 
 ## Other Tips
