@@ -90,6 +90,7 @@
   endif
 
   syntax enable
+  " set t_Co=256           " number of supported colors
   set autoread           " Automatically reload changes if detected
   set wildmenu           " Turn on WiLd menu
   set hidden             " Change buffer - without saving
@@ -297,6 +298,8 @@
 " code display
 " plugins and colorschemes that enhance code display {{{
   NeoBundle 'tomasr/molokai'
+  NeoBundle 'croaker/mustang-vim'
+  NeoBundle 'altercation/vim-colors-solarized'
   NeoBundle 'godlygeek/csapprox'
   NeoBundle 'noahfrederick/vim-hemisu'
   NeoBundle 'altercation/vim-colors-solarized'
@@ -317,20 +320,12 @@
     let g:syntastic_style_warning_symbol = '≈'
   "}}}
 
-  NeoBundle 'Shougo/vimproc.vim', {
-        \ 'build': {
-          \ 'mac': 'make -f make_mac.mak',
-          \ 'unix': 'make -f make_unix.mak',
-          \ 'cygwin': 'make -f make_cygwin.mak',
-          \ 'windows': '"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\nmake.exe" make_msvc32.mak',
-        \ },
-      \ }
 "}}}
 
 " interface
 " plugins that add or change a UI element {{{
   NeoBundle 'sickill/vim-pasta'          "pasting with indentation adjusted to destination context
-  NeoBundle 'tpope/vim-fugitive'         "a Git wrapper so awesome, it should be illegal
+  NeoBundle 'tpope/vim-fugitive'         "Git wrapper so awesome, it should be illegal
   NeoBundle 'vim-scripts/gitignore'      "Set 'wildignore' from ./.gitignore
   "NeoBundle 'mhinz/vim-startify'        "fancy start screen for Vim
   "NeoBundle 'gregsexton/gitv'            "gitk-like extension for vim-fugitive
@@ -355,9 +350,12 @@
 
   NeoBundle 'scrooloose/nerdtree' "{{{
   NeoBundle 'jistr/vim-nerdtree-tabs'
+  NeoBundle 'Xuyuanp/nerdtree-git-plugin'
     let NERDTreeShowHidden=1
     let NERDTreeQuitOnOpen=0
     let NERDTreeShowLineNumbers=1
+    let NERDTreeHighlightCursorline=1
+    let NERDTreeDirArrows=1
     let NERDTreeChDirMode=0
     let NERDTreeShowBookmarks=1
     let NERDTreeIgnore=['\.git','\.hg']
@@ -376,52 +374,18 @@
     "}}}
   endif
 
-  NeoBundle 'Shougo/unite.vim' "{{{
-    let bundle = neobundle#get('unite.vim')
-    function! bundle.hooks.on_source(bundle)
-      call unite#filters#matcher_default#use(['matcher_fuzzy'])
-      call unite#filters#sorter_default#use(['sorter_rank'])
-      call unite#custom#source('file_rec/async','sorters','sorter_rank', )
-      "call unite#custom#source('line,outline','matchers','matcher_fuzzy')
-      call unite#custom#profile('default', 'context', {
-        \ 'start_insert': 1,
-        \ 'direction': 'botright',
-        \ })
-    endfunction
+  NeoBundle 'kien/ctrlp.vim' "{{{
+    nnoremap <leader>f :CtrlP<CR>
 
-    " replacing unite with ctrl-p
-    let g:unite_enable_start_insert=1
-    let g:unite_source_history_yank_enable=1
-    let g:unite_prompt='» '
-    let g:unite_split_rule = 'botright'
-    if executable('ag')
-      let g:unite_source_grep_command='ag'
-      let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
-      let g:unite_source_grep_recursive_opt=''
-    elseif executable('ack')
-      let g:unite_source_grep_command='ack'
-      let g:unite_source_grep_default_opts='--no-heading --no-color -C4'
-      let g:unite_source_grep_recursive_opt=''
-    endif
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+    set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
-    autocmd FileType unite call s:unite_settings()
-
-    function! s:unite_settings()
-      let b:SuperTabDisabled=1
-      imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-      imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-      imap <silent><buffer><expr> <C-h> unite#do_action('split')
-      imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-      imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-
-      nmap <buffer> <ESC> <Plug>(unite_exit)
-    endfunction
-
-    NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
-
-    nnoremap <leader>f :<C-u>Unite -toggle -auto-resize file file_mru file_rec/async:!<cr><c-u>
-    nnoremap <leader>g :Unite -no-quit grep:.<cr>
-    nnoremap <leader>b :Unite -quick-match buffer<cr>
+    " let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+    let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
   "}}}
 
   NeoBundle 'nathanaelkane/vim-indent-guides' "{{{
@@ -485,7 +449,9 @@ syntax enable
       colorscheme slate
     endif
   else
-    colorscheme molokai
+    colorscheme solarized
+    " colorscheme mustang
+    " colorscheme molokai
   endif
 " }}}
 
