@@ -449,7 +449,8 @@ syntax enable
       colorscheme slate
     endif
   else
-    colorscheme solarized
+    colorscheme hybrid
+    " colorscheme solarized
     " colorscheme mustang
     " colorscheme molokai
   endif

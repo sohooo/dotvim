@@ -7,32 +7,26 @@ This setup is based on various sources all around github. Huge credits go to the
 * [mutewinter's dotvim](https://github.com/mutewinter/dot_vim)
 * [skwp's dotfiles](https://github.com/skwp/dotfiles)
 
-## Screenshots
-
-### Code View
-![MacVim with Drawer](http://dl.dropbox.com/u/393159/macvim/macvim_sohooo.png "Macvim")
-
-### Distraction Free
-![Distraction-free Markdown](http://dl.dropbox.com/u/393159/macvim/distraction-free.png "Distraction-free Markdown environment")
 
 ## Features
 
-- fully portable; place `vimrc` anywhere you want
+- fully portable; place this `vimrc` anywhere you want
 - conditional loading of plugins/language features with `NeoBundleLazy`
 - distraction-free writing mode
 
 
 ## Installation
 
-1. `cd; git clone http://github.com/sohooo/vimfiles.git .vimfiles` in your home folder.
-2. `ln -s .vimfiles .vim && ln -s .vimfiles/vimrc .vimrc` to make the symbolic links.
-3. Install the awesome [Vundle](https://github.com/gmarik/vundle) with `git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle`
-4. Start Vim and type `:BundleInstall` to install the plugins defined in `.vimrc`.
+1. Put this repo in a place you like: `git clone http://github.com/sohooo/dotvim.git ~/.dotvim`
+2. Iinstall NeoBundle: `mkdir -p ~/.dotvim/bundle && git clone https://github.com/Shougo/neobundle.vim ~/.dotvim/bundle/neobundle.vim`
+3. Create an alias to use your Vim installation: `alias v='mvim -u ~/.dotvim/vimrc'`; this way, we don't interfere with the system Vim installation.
+4. Start Vim and type `:NeoBundleInstall` to install the (missing) plugins defined in `.vimrc`.
 5. Enjoy!
+
 
 ## Bindings
 
-Here's a list of useful keyboard bindings:
+Here's a list of some useful keyboard bindings:
 
 * `s`       vim-sneak; like 'f', but multiple lines
 * `,f`      find file w/ Unite
